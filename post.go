@@ -1,4 +1,4 @@
-// Copyright 2017 The gmedium Authors. All rights reserved.
+// Copyright 2017 The gomedium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -54,6 +54,9 @@ func initPost(ctx *cli.Context) error {
 }
 
 func runPost(ctx *cli.Context) error {
+	if err := checkArgs(ctx, 1, exactArgs, "markdown file"); err != nil {
+		return err
+	}
 	_, err := os.Stat(postFilename)
 	if err != nil {
 		if os.IsNotExist(err) {
