@@ -23,7 +23,9 @@ func main() {
 	app.Usage = "A command line tool for Medium stories."
 	app.Version = fmt.Sprintf("%s (%s)", version, gitCommit)
 	app.Flags = []cli.Flag{}
-	app.Commands = []cli.Command{}
+	app.Commands = []cli.Command{
+		postCommand,
+	}
 	app.ErrWriter = &fatalWriter{cli.ErrWriter}
 	if err := app.Run(os.Args); err != nil {
 		os.Exit(1)
