@@ -1,0 +1,19 @@
+memo = "ec8127d2847235e0134cf1071c102fb78a74c4b09dc3d8b2d6958afe7a26500e"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/medium/medium-sdk-go"
+  packages = ["."]
+  revision = "ec547c49f00ccc6c63365d5b4c4c15b452468704"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "c605e284fe17294bda444b34710735b29d1a9d90"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/urfave/cli"
+  packages = ["."]
+  revision = "d70f47eeca3afd795160003bc6e28b001d60c67c"
