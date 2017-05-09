@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/go-yaml/yaml"
+	"github.com/pkg/errors"
 	"github.com/zchee/go-xdgbasedir"
 )
 
@@ -33,7 +34,7 @@ type tokenSyntax struct {
 func readToken() (string, error) {
 	out, err := ioutil.ReadFile(tokenFile)
 	if err != nil {
-		return "", err
+		return "", errors.New(`Unable to locate token. You can configure token by running "gomedium login".`)
 	}
 	token := new(tokenSyntax)
 	yaml.Unmarshal(out, token)
