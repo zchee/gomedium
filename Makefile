@@ -10,6 +10,10 @@ build: bin/$(PACKAGE_NAME)
 install:
 	go install -v -x .
 
+.PHONY: uninstall
+uninstall:
+	rm -f $(shell which gomedium)
+
 bin/$(PACKAGE_NAME): $(GO_SRCS)
 	go build -v -x -o ./bin/$(PACKAGE_NAME)
 
