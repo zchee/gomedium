@@ -35,8 +35,6 @@ var postCommand = cli.Command{
 	Action: runPost,
 }
 
-var createOption medium.CreatePostOptions
-
 var (
 	postFilename string
 	postTitle    string
@@ -87,7 +85,7 @@ func runPost(ctx *cli.Context) error {
 	// TODO(zchee): support License config
 	// Wait for medium-sdk-go exported several internal types.
 	// https://github.com/Medium/medium-sdk-go/pull/17
-	createOption = medium.CreatePostOptions{
+	createOption := medium.CreatePostOptions{
 		Title:         postTitle,
 		Content:       string(buf),
 		ContentFormat: medium.ContentFormatMarkdown,
