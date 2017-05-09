@@ -26,6 +26,7 @@ func main() {
 	app.Version = fmt.Sprintf("%s (%s)", version, gitCommit)
 	app.Flags = []cli.Flag{}
 	app.Commands = []cli.Command{
+		loginCommand,
 		postCommand,
 	}
 	app.ErrWriter = &fatalWriter{cli.ErrWriter}
