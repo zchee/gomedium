@@ -48,8 +48,9 @@ const (
 	maxArgs
 )
 
-func checkArgs(ctx *cli.Context, expected, checkType int, args ...string) (err error) {
+func checkArgs(ctx *cli.Context, expected, checkType int, args ...string) error {
 	cmdName := ctx.Command.FullName()
+	var err error
 	switch checkType {
 	case exactArgs:
 		if ctx.NArg() != expected {
