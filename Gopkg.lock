@@ -1,10 +1,10 @@
-memo = "ec8127d2847235e0134cf1071c102fb78a74c4b09dc3d8b2d6958afe7a26500e"
+memo = "1b1ec727bfd8661e7ad335efb09163eea6507cd8495f25ea9e72b73961b9102c"
 
 [[projects]]
   branch = "master"
   name = "github.com/medium/medium-sdk-go"
   packages = ["."]
-  revision = "ec547c49f00ccc6c63365d5b4c4c15b452468704"
+  revision = "c6dd13a154d7580601528657f4fb931d0f413175"
 
 [[projects]]
   branch = "master"
