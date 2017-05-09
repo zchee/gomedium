@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
+	"github.com/go-yaml/yaml"
 	"github.com/zchee/go-xdgbasedir"
 )
 
@@ -29,10 +30,12 @@ type tokenSyntax struct {
 	Token string
 }
 
-func readToken() ([]byte, error) {
+func readToken() (string, error) {
 	out, err := ioutil.ReadFile(tokenFile)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	return out, nil
+	token := new(tokenSyntax)
+	yaml.Unmarshal(out, token)
+	return token.Token, nil
 }
