@@ -6,6 +6,10 @@ all: build
 .PHONY: build
 build: bin/$(PACKAGE_NAME)
 
+.PHONY: install
+install:
+	go install -v -x .
+
 bin/$(PACKAGE_NAME): $(GO_SRCS)
 	go build -v -x -o ./bin/$(PACKAGE_NAME)
 
