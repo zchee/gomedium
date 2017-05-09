@@ -26,7 +26,7 @@ var (
 )
 
 type tokenSyntax struct {
-	token string
+	Token string
 }
 
 func readToken() ([]byte, error) {

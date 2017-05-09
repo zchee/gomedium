@@ -53,7 +53,7 @@ func runLogin(ctx *cli.Context) error {
 		return err
 	}
 
-	token := tokenSyntax{token: loginToken}
+	token := tokenSyntax{Token: loginToken}
 	data, err := yaml.Marshal(token)
 	if err != nil {
 		return err
