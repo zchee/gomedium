@@ -17,3 +17,9 @@ memo = "1b1ec727bfd8661e7ad335efb09163eea6507cd8495f25ea9e72b73961b9102c"
   name = "github.com/urfave/cli"
   packages = ["."]
   revision = "d70f47eeca3afd795160003bc6e28b001d60c67c"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/zchee/go-xdgbasedir"
+  packages = [".","home"]
+  revision = "9e3b9735d059747e24923def768d235d9df86b21"

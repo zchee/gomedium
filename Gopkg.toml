@@ -10,3 +10,7 @@
 [[dependencies]]
   branch = "master"
   name = "github.com/urfave/cli"
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/zchee/go-xdgbasedir"
