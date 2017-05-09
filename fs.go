@@ -37,6 +37,8 @@ func readToken() (string, error) {
 		return "", errors.New(`Unable to locate token. You can configure token by running "gomedium login".`)
 	}
 	token := new(tokenSyntax)
-	yaml.Unmarshal(out, token)
+	if err := yaml.Unmarshal(out, token); err != nil {
+		return "", err
+	}
 	return token.Token, nil
 }
