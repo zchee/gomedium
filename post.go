@@ -50,6 +50,10 @@ func initPost(ctx *cli.Context) error {
 	postStatus = ctx.String("status")
 	postTags = ctx.StringSlice("tags")
 
+	if postTitle == "" {
+		return errors.New("title is empty")
+	}
+
 	switch postStatus {
 	case "draft", "unlisted", "public":
 		// nothing to do
@@ -66,6 +70,7 @@ func runPost(ctx *cli.Context) error {
 	if err := checkArgs(ctx, 1, exactArgs, "markdown file"); err != nil {
 		return err
 	}
+
 	_, err := os.Stat(postFilename)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -73,27 +78,22 @@ func runPost(ctx *cli.Context) error {
 		}
 		return errors.Wrapf(err, "could not stat %s", postFilename)
 	}
+	buf, err := ioutil.ReadFile(postFilename)
+	if err != nil {
+		return err
+	}
 
 	// TODO(zchee): support CanonicalURL
 	// TODO(zchee): support License config
 	// Wait for medium-sdk-go exported several internal types.
 	// https://github.com/Medium/medium-sdk-go/pull/17
 	createOption = medium.CreatePostOptions{
+		Title:         postTitle,
+		Content:       string(buf),
 		ContentFormat: medium.ContentFormatMarkdown,
 		Tags:          postTags,
 		PublishStatus: medium.PublishStatus(postStatus),
 	}
-
-	if postTitle == "" {
-		return errors.New("title is empty")
-	}
-	createOption.Title = postTitle
-
-	buf, err := ioutil.ReadFile(postFilename)
-	if err != nil {
-		return err
-	}
-	createOption.Content = string(buf)
 
 	m := medium.NewClientWithAccessToken(os.Getenv("MEDIUM_SECRET_ACCESS_KEY"))
 	usr, err := m.GetUser("")
