@@ -43,10 +43,22 @@ var (
 )
 
 func initPost(ctx *cli.Context) error {
+	if err := checkArgs(ctx, 1, exactArgs, "markdown file"); err != nil {
+		return err
+	}
+
 	postFilename = ctx.Args().First()
 	postTitle = ctx.String("title")
 	postStatus = ctx.String("status")
 	postTags = ctx.StringSlice("tags")
+
+	_, err := os.Stat(postFilename)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return errors.Errorf("not fonud %s markdown file", postFilename)
+		}
+		return errors.Wrapf(err, "could not stat %s", postFilename)
+	}
 
 	if postTitle == "" {
 		return errors.New("title is empty")
@@ -65,17 +77,6 @@ func initPost(ctx *cli.Context) error {
 }
 
 func runPost(ctx *cli.Context) error {
-	if err := checkArgs(ctx, 1, exactArgs, "markdown file"); err != nil {
-		return err
-	}
-
-	_, err := os.Stat(postFilename)
-	if err != nil {
-		if os.IsNotExist(err) {
-			return errors.Errorf("not fonud %s markdown file", postFilename)
-		}
-		return errors.Wrapf(err, "could not stat %s", postFilename)
-	}
 	buf, err := ioutil.ReadFile(postFilename)
 	if err != nil {
 		return err
