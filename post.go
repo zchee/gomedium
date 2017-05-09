@@ -93,7 +93,11 @@ func runPost(ctx *cli.Context) error {
 		PublishStatus: medium.PublishStatus(postStatus),
 	}
 
-	m := medium.NewClientWithAccessToken(os.Getenv("MEDIUM_SECRET_ACCESS_KEY"))
+	token, err := readToken()
+	if err != nil {
+		return err
+	}
+	m := medium.NewClientWithAccessToken(string(token))
 	usr, err := m.GetUser("")
 	if err != nil {
 		return errors.Wrap(err, "could not get medium user information")
