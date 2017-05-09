@@ -19,7 +19,7 @@ clean:
 
 .PHONY: vendor/clean
 vendor/install:
-	go install -v -x $(go list ./vendor/...)
+	go install -v -x $(shell go list ./vendor/... | grep -v -e 'altsrc')
 
 .PHONY: vendor/clean
 vendor/clean:
