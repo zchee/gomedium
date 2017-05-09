@@ -1,4 +1,10 @@
-memo = "1b1ec727bfd8661e7ad335efb09163eea6507cd8495f25ea9e72b73961b9102c"
+memo = "a982d5804ed9e3b82fb88e9c0c8970930ae639808e3ebc473024e8f79b81d5e4"
+
+[[projects]]
+  branch = "v2"
+  name = "github.com/go-yaml/yaml"
+  packages = ["."]
+  revision = "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b"
 
 [[projects]]
   branch = "master"

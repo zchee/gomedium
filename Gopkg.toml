@@ -4,6 +4,10 @@
   name = "github.com/Medium/medium-sdk-go"
 
 [[dependencies]]
+  branch = "v2"
+  name = "github.com/go-yaml/yaml"
+
+[[dependencies]]
   branch = "master"
   name = "github.com/pkg/errors"
 
