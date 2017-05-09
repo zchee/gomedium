@@ -24,7 +24,7 @@ var postCommand = cli.Command{
 		},
 		cli.StringFlag{
 			Name:  "status, s",
-			Usage: "article status",
+			Usage: "article status [draft, unlisted, public]",
 		},
 		cli.StringSliceFlag{
 			Name:  "tags",
@@ -50,6 +50,15 @@ func initPost(ctx *cli.Context) error {
 	postStatus = ctx.String("status")
 	postTags = ctx.StringSlice("tags")
 
+	switch postStatus {
+	case "draft", "unlisted", "public":
+		// nothing to do
+	case "":
+		postStatus = "draft" // defalut is "draft"
+	default:
+		return errors.New("unknown post status")
+	}
+
 	return nil
 }
 
@@ -72,7 +81,19 @@ func runPost(ctx *cli.Context) error {
 	createOption = medium.CreatePostOptions{
 		ContentFormat: medium.ContentFormatMarkdown,
 		Tags:          postTags,
+		PublishStatus: medium.PublishStatus(postStatus),
 	}
+
+	if postTitle == "" {
+		return errors.New("title is empty")
+	}
+	createOption.Title = postTitle
+
+	buf, err := ioutil.ReadFile(postFilename)
+	if err != nil {
+		return err
+	}
+	createOption.Content = string(buf)
 
 	m := medium.NewClientWithAccessToken(os.Getenv("MEDIUM_SECRET_ACCESS_KEY"))
 	usr, err := m.GetUser("")
@@ -80,28 +101,6 @@ func runPost(ctx *cli.Context) error {
 		return errors.Wrap(err, "could not get medium user information")
 	}
 	createOption.UserID = usr.ID
-
-	if postTitle == "" {
-		return errors.New("title is empty")
-	}
-	createOption.Title = postTitle
-
-	switch postStatus {
-	case "draft":
-		createOption.PublishStatus = medium.PublishStatusDraft
-	case "unlisted":
-		createOption.PublishStatus = medium.PublishStatusUnlisted
-	case "public":
-		createOption.PublishStatus = medium.PublishStatusPublic
-	default:
-		return errors.New("unknown post status")
-	}
-
-	buf, err := ioutil.ReadFile(postFilename)
-	if err != nil {
-		return err
-	}
-	createOption.Content = string(buf)
 
 	_, err = m.CreatePost(createOption)
 	if err != nil {
