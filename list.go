@@ -40,7 +40,10 @@ func runList(ctx *cli.Context) error {
 	var buf bytes.Buffer
 	i := 1
 	for _, post := range detail.Payload.References.Post {
-		u, _ := url.Parse(usr.URL)
+		u, err := url.Parse(usr.URL)
+		if err != nil {
+			return errors.Wrapf(err, "failed to parse get url: '%s'", usr.URL)
+		}
 		u.Path = path.Join(u.Path, post.UniqueSlug)
 		buf.WriteString(fmt.Sprintf("(%d) %s: %s\n", i, post.Title, u))
 		i++
