@@ -15,7 +15,7 @@ import (
 
 var listCommand = cli.Command{
 	Name:   "list",
-	Usage:  "lists to your Medium stories",
+	Usage:  "lists to your posted Medium stories",
 	Action: runList,
 }
 
