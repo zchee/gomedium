@@ -14,6 +14,7 @@ import (
 
 	medium "github.com/medium/medium-sdk-go"
 	"github.com/pkg/errors"
+	"github.com/zchee/gomedium/internal/api"
 )
 
 const (
@@ -21,7 +22,7 @@ const (
 )
 
 // GetUserDetail gets more detailed user information than the official package.
-func GetUserDetail(usr *medium.User) (*User, error) {
+func GetUserDetail(usr *medium.User) (*api.User, error) {
 	u, err := url.Parse(siteEndpoint)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to parse get url: '%s'", siteEndpoint)
@@ -35,7 +36,7 @@ func GetUserDetail(usr *medium.User) (*User, error) {
 		return nil, err
 	}
 
-	usrDetail := new(User)
+	usrDetail := new(api.User)
 	if err := json.Unmarshal(data, usrDetail); err != nil {
 		return nil, err
 	}

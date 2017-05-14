@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+// Package api implements unofficial Medium's REST API.
+package api
 
-// User represents a unofficial Medium's user data.
+// User represents a Medium's user data.
 type User struct {
 	Success bool `json:"success"`
 	Payload struct {
