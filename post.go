@@ -82,18 +82,6 @@ func runPost(ctx *cli.Context) error {
 		return err
 	}
 
-	// TODO(zchee): support CanonicalURL
-	// TODO(zchee): support License config
-	// Wait for medium-sdk-go exported several internal types.
-	// https://github.com/Medium/medium-sdk-go/pull/17
-	createOption := medium.CreatePostOptions{
-		Title:         postTitle,
-		Content:       string(buf),
-		ContentFormat: medium.ContentFormatMarkdown,
-		Tags:          postTags,
-		PublishStatus: medium.PublishStatus(postStatus),
-	}
-
 	token, err := readToken()
 	if err != nil {
 		return err
@@ -103,7 +91,19 @@ func runPost(ctx *cli.Context) error {
 	if err != nil {
 		return errors.Wrap(err, "could not get medium user information")
 	}
-	createOption.UserID = usr.ID
+
+	// TODO(zchee): support CanonicalURL
+	// TODO(zchee): support License config
+	// Wait for medium-sdk-go exported several internal types.
+	// https://github.com/Medium/medium-sdk-go/pull/17
+	createOption := medium.CreatePostOptions{
+		UserID:        usr.ID,
+		Title:         postTitle,
+		Content:       string(buf),
+		ContentFormat: medium.ContentFormatMarkdown,
+		Tags:          postTags,
+		PublishStatus: medium.PublishStatus(postStatus),
+	}
 
 	_, err = m.CreatePost(createOption)
 	if err != nil {
