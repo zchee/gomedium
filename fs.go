@@ -6,6 +6,7 @@ package main
 
 import (
 	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/go-yaml/yaml"
@@ -23,6 +24,16 @@ var (
 
 type configSyntax struct {
 	License medium.License
+}
+
+func openConfig() (*os.File, error) {
+	if _, err := os.Stat(configFile); err != nil {
+		if err := os.MkdirAll(configDir, 0700); err != nil {
+			return nil, err
+		}
+		return os.Create(configFile)
+	}
+	return os.Open(configFile)
 }
 
 var (
