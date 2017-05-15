@@ -16,7 +16,7 @@ import (
 
 var configCommand = cli.Command{
 	Name:      "config",
-	Usage:     "set gomedium configs",
+	Usage:     "set gomedium config",
 	ArgsUsage: "key=value",
 	Before:    initConfig,
 	Action:    runConfig,
