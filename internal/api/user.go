@@ -283,3 +283,15 @@ type PostReference struct {
 	AudioVersionDurationSec      int    `json:"audioVersionDurationSec"`
 	Type                         string `json:"type"`
 }
+
+func (u *User) IsSuccess() bool {
+	return u.Success
+}
+
+func (u *User) PostReferences() []PostReference {
+	posts := []PostReference{} // do not use `make`. `u.Payload.References.Post` length is ramdomly (contains empty).
+	for _, v := range u.Payload.References.Post {
+		posts = append(posts, v)
+	}
+	return posts
+}
