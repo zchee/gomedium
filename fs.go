@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/go-yaml/yaml"
+	medium "github.com/medium/medium-sdk-go"
 	"github.com/pkg/errors"
 	"github.com/zchee/go-xdgbasedir"
 )
@@ -20,7 +21,9 @@ var (
 	configFile = filepath.Join(configDir, "config.yml")
 )
 
-type configSyntax struct{}
+type configSyntax struct {
+	License medium.License
+}
 
 var (
 	// tokenFile file of gomedium authenticates token.
