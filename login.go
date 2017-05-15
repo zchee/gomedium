@@ -42,7 +42,7 @@ func initLogin(ctx *cli.Context) error {
 }
 
 func runLogin(ctx *cli.Context) error {
-	if _, err := os.Stat(tokenFile); err == nil {
+	if _, err := readToken(); err == nil {
 		log.Print("already logged in")
 		return nil
 	}
