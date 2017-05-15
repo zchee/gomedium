@@ -93,9 +93,6 @@ func runPost(ctx *cli.Context) error {
 	}
 
 	// TODO(zchee): support CanonicalURL
-	// TODO(zchee): support License config
-	// Wait for medium-sdk-go exported several internal types.
-	// https://github.com/Medium/medium-sdk-go/pull/17
 	createOption := medium.CreatePostOptions{
 		UserID:        usr.ID,
 		Title:         postTitle,
@@ -104,6 +101,11 @@ func runPost(ctx *cli.Context) error {
 		Tags:          postTags,
 		PublishStatus: medium.PublishStatus(postStatus),
 	}
+	license, err := readConfig("license")
+	if err != nil {
+		return err
+	}
+	createOption.License = medium.License(license)
 
 	_, err = m.CreatePost(createOption)
 	if err != nil {

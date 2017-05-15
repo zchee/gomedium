@@ -36,6 +36,30 @@ func openConfig() (*os.File, error) {
 	return os.Open(configFile)
 }
 
+func readConfig(key string) (string, error) {
+	f, err := openConfig()
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+
+	data, err := ioutil.ReadAll(f)
+	if err != nil {
+		return "", err
+	}
+	config := new(configSyntax)
+	if err := yaml.Unmarshal(data, config); err != nil {
+		return "", err
+	}
+
+	switch key {
+	case "license":
+		return string(config.License), nil
+	default:
+		return "", errors.New("unknown config key")
+	}
+}
+
 var (
 	// tokenFile file of gomedium authenticates token.
 	tokenFile = filepath.Join(configDir, "token.yml")
